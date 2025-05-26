@@ -1,57 +1,33 @@
-<script lang="ts">
-	import Header from './Header.svelte';
+<!-- Layout.svelte -->
+<script>
 	import '../app.css';
-
-	let { children } = $props();
+	// Если нужно, можно сюда подключить props или stores
 </script>
 
-<div class="app">
-	<Header />
+<div class="flex h-screen flex-col overflow-hidden bg-gray-50 dark:bg-gray-900">
+	<!-- Header -->
+	<header class="flex h-16 items-center border-b border-gray-200 px-6 dark:border-gray-800">
+		<!-- Контент хедера -->
+		<h1 class="text-lg font-semibold text-gray-800 dark:text-white">Заголовок</h1>
+	</header>
 
-	<main>
-		{@render children()}
-	</main>
+	<!-- Main Layout -->
+	<div class="flex flex-1 overflow-hidden">
+		<!-- Sidebar -->
+		<aside class="w-64 border-r border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-800">
+			<!-- Контент сайдбара -->
+			<nav class="p-4">
+				<ul class="space-y-2">
+					<li><a href="#" class="text-gray-700 dark:text-gray-200">Пункт 1</a></li>
+					<li><a href="#" class="text-gray-700 dark:text-gray-200">Пункт 2</a></li>
+				</ul>
+			</nav>
+		</aside>
 
-	<footer>
-		<p>
-			visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to learn about SvelteKit
-		</p>
-	</footer>
+		<!-- Right Panel -->
+		<section class="flex-1 overflow-y-auto bg-gray-50 p-6 dark:bg-gray-900">
+			<!-- Контент правой панели -->
+			<slot />
+		</section>
+	</div>
 </div>
-
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>

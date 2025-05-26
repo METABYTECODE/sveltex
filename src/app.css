@@ -4,105 +4,207 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-	--font-body:
-		Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-		'Open Sans', 'Helvetica Neue', sans-serif;
-	--font-mono: 'Fira Mono', monospace;
+	/* Цветовая схема */
 	--color-bg-0: rgb(202, 216, 228);
 	--color-bg-1: hsl(209, 36%, 86%);
 	--color-bg-2: hsl(224, 44%, 95%);
 	--color-theme-1: #ff3e00;
 	--color-theme-2: #4075a6;
 	--color-text: rgba(0, 0, 0, 0.7);
-	--column-width: 42rem;
-	--column-margin-top: 4rem;
-	font-family: var(--font-body);
-	color: var(--color-text);
+	--color-text-light: rgba(255, 255, 255, 0.9);
+	--color-border: rgba(0, 0, 0, 0.1);
+
+	/* Типографика */
+	--font-body:
+		Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+		'Open Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+	--font-heading: var(--font-body);
+
+	/* Размеры */
+	--base-size: 1rem;
+	--scale: 1.25;
+	--h1: calc(var(--h2) * var(--scale));
+	--h2: calc(var(--h3) * var(--scale));
+	--h3: calc(var(--h4) * var(--scale));
+	--h4: calc(var(--h5) * var(--scale));
+	--h5: calc(var(--base-size) * var(--scale));
+	--small: calc(var(--base-size) / var(--scale));
+
+	/* Прочее */
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 16px;
+	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+	--transition: all 0.3s ease;
+}
+
+/* Темная тема */
+[data-theme='dark'] {
+	--color-bg-0: #1a1a1a;
+	--color-bg-1: #242424;
+	--color-bg-2: #2d2d2d;
+	--color-text: rgba(255, 255, 255, 0.8);
+	--color-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Базовые стили */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 body {
 	min-height: 100vh;
-	margin: 0;
+	font-family: var(--font-body);
+	font-size: var(--base-size);
+	line-height: 1.6;
+	color: var(--color-text);
 	background-attachment: fixed;
 	background-color: var(--color-bg-1);
-	background-size: 100vw 100vh;
 	background-image:
 		radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 100%),
 		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
 }
 
+/* Типографика */
 h1,
 h2,
-p {
-	font-weight: 400;
-}
-
-p {
-	line-height: 1.5;
-}
-
-a {
-	color: var(--color-theme-1);
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
+h3,
+h4,
+h5 {
+	font-family: var(--font-heading);
+	font-weight: 600;
+	line-height: 1.2;
+	margin-bottom: 0.5em;
 }
 
 h1 {
-	font-size: 2rem;
+	font-size: var(--h1);
+}
+h2 {
+	font-size: var(--h2);
+}
+h3 {
+	font-size: var(--h3);
+}
+h4 {
+	font-size: var(--h4);
+}
+h5 {
+	font-size: var(--h5);
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+small {
+	font-size: var(--small);
+}
+
+/* Ссылки */
+a {
+	color: var(--color-theme-1);
+	text-decoration: none;
+	transition: var(--transition);
+}
+
+a:hover {
+	color: var(--color-theme-2);
+	text-decoration: underline;
+}
+
+/* Кнопки */
+button,
+.btn {
+	display: inline-block;
+	padding: 0.5rem 1rem;
+	font-family: var(--font-body);
+	font-size: var(--base-size);
+	color: white;
+	background-color: var(--color-theme-1);
+	border: none;
+	border-radius: var(--radius-sm);
+	cursor: pointer;
+	transition: var(--transition);
+}
+
+button:hover,
+.btn:hover {
+	background-color: var(--color-theme-2);
+	transform: translateY(-1px);
+}
+
+/* Формы */
+input,
+textarea,
+select {
+	width: 100%;
+	padding: 0.5rem;
+	font-family: var(--font-body);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-sm);
+	margin-bottom: 1rem;
+}
+
+/* Утилиты */
+.container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+
+.flex {
+	display: flex;
+	gap: 1rem;
+}
+
+.grid {
+	display: grid;
+	gap: 1rem;
+}
+
+.text-center {
 	text-align: center;
 }
 
-h2 {
-	font-size: 1rem;
+.shadow {
+	box-shadow: var(--shadow-sm);
 }
 
-pre {
-	font-size: 16px;
-	font-family: var(--font-mono);
-	background-color: rgba(255, 255, 255, 0.45);
-	border-radius: 3px;
-	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
-	padding: 0.5em;
-	overflow-x: auto;
-	color: var(--color-text);
+.rounded {
+	border-radius: var(--radius-md);
 }
 
-.text-column {
-	display: flex;
-	max-width: 48rem;
-	flex: 0.6;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 auto;
-}
-
-input,
-button {
-	font-size: inherit;
-	font-family: inherit;
-}
-
-button:focus:not(:focus-visible) {
-	outline: none;
-}
-
-@media (min-width: 720px) {
-	h1 {
-		font-size: 2.4rem;
+/* Анимации */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }
 
-.visually-hidden {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: auto;
-	margin: 0;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-	white-space: nowrap;
+.fade-in {
+	animation: fadeIn 0.5s ease-in;
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+	:root {
+		--scale: 1.2;
+	}
+
+	.container {
+		padding: 0 0.5rem;
+	}
 }
